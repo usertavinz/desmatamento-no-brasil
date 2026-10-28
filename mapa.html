@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Mapa | Desmatamento no Brasil</title><link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#000000"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"></head><body>
+<header style="padding-bottom:12px"><a class="brand" href="index.html"><h1 style="font-size:1.6rem;margin:0">Desmatamento no Brasil</h1></a></header>
+<nav aria-label="Seções"><a href="index.html">Início</a><a href="dados.html">Dados</a><a href="mapa.html" aria-current="page">Mapa</a><a href="causas.html">Causas e impactos</a><a href="denuncia.html">Como denunciar</a><a href="baixar.html">Baixar dados e este app</a></nav>
+<main>
+  <h2>Regiões mais afetadas</h2>
+  <p>Mapa esquemático dos estados, com a posição aproximada de cada um. Toque em um estado para ver o contexto.</p>
+  <div class="grid" id="grid" role="group" aria-label="Mapa esquemático dos estados brasileiros"></div>
+  <div class="legend">
+    <span><i style="background:var(--burn)"></i>Alto, Amazônia</span>
+    <span><i style="background:#C79A4A"></i>Alto, Cerrado (Matopiba)</span>
+    <span><i style="background:#5E8F70"></i>Atenção</span>
+    <span><i style="background:#1D2620;outline:1px solid #3A463E"></i>Menor pressão</span>
+  </div>
+  <div class="box" id="info">Toque em um estado para ver mais.</div>
+  <h2>Dois biomas, duas pressões</h2>
+  <ul>
+    <li><strong>Amazônia:</strong> o desmatamento se concentra no chamado arco do desmatamento, em Pará, Mato Grosso, Rondônia, Amazonas e Acre.</li>
+    <li><strong>Cerrado:</strong> a fronteira agrícola avança no Matopiba (Maranhão, Tocantins, Piauí e Bahia). Em 2024, o PRODES Cerrado registrou cerca de 7.000 km², perto do valor da Amazônia.</li>
+    <li><strong>Outros biomas:</strong> Mata Atlântica, Caatinga, Pantanal e Pampa também perdem vegetação nativa, em menor escala.</li>
+  </ul>
+  <p class="note">Classificação qualitativa com base em dados do INPE/PRODES e do MapBiomas. Para valores por estado, consulte o TerraBrasilis.</p>
+</main>
+<script>
+var CAT={
+ am:['#C4614D','#0B0F0C','Alto, Amazônia','Está no arco do desmatamento, onde a pressão por pasto, grilagem e madeira ilegal é maior.'],
+ ce:['#C79A4A','#0B0F0C','Alto, Cerrado (Matopiba)','Fronteira agrícola do Cerrado, com avanço de lavouras sobre a vegetação nativa.'],
+ at:['#5E8F70','#0B0F0C','Atenção','Tem pressão sobre a vegetação nativa, em menor escala ou em parte do território.'],
+ lo:['#1D2620','#C9D4CC','Menor pressão','Menor participação no desmatamento recente da Amazônia e do Cerrado.']};
+var S=[['RR',2,0,'at'],['AP',3,0,'at'],['AM',2,1,'am'],['PA',3,1,'am'],['MA',4,1,'ce'],['CE',5,1,'lo'],['RN',6,1,'lo'],
+['AC',1,2,'at'],['RO',2,2,'am'],['MT',3,2,'am'],['TO',4,2,'ce'],['PI',5,2,'ce'],['PB',6,2,'lo'],
+['MS',2,3,'at'],['GO',3,3,'at'],['DF',4,3,'lo'],['BA',5,3,'ce'],['PE',6,3,'lo'],
+['SP',3,4,'lo'],['MG',4,4,'at'],['ES',5,4,'lo'],['AL',6,4,'lo'],
+['PR',3,5,'lo'],['RJ',4,5,'lo'],['SE',6,5,'lo'],['SC',3,6,'lo'],['RS',3,7,'lo']];
+var g=document.getElementById('grid'),info=document.getElementById('info');
+for(var r=0;r<8;r++)for(var k=0;k<8;k++){
+  var s=S.filter(function(e){return e[1]===k&&e[2]===r})[0];
+  if(!s){g.appendChild(document.createElement('span'));continue}
+  var b=document.createElement('button'),c2=CAT[s[3]];
+  b.textContent=s[0];b.style.background=c2[0];b.style.color=c2[1];
+  b.onclick=(function(b,s,c2){return function(){
+    g.querySelectorAll('button').forEach(function(x){x.classList.remove('sel')});
+    b.classList.add('sel');
+    info.innerHTML='<strong>'+s[0]+': '+c2[2]+'</strong><br>'+c2[3];
+  }})(b,s,c2);
+  g.appendChild(b);
+}
+</script>
+<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("sw.js")})}</script>
+</body></html>

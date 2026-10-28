@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Baixar dados e este app | Desmatamento no Brasil</title><link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#000000"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"></head><body>
+<header style="padding-bottom:12px"><a class="brand" href="index.html"><h1 style="font-size:1.6rem;margin:0">Desmatamento no Brasil</h1></a></header>
+<nav aria-label="Seções"><a href="index.html">Início</a><a href="dados.html">Dados</a><a href="mapa.html">Mapa</a><a href="causas.html">Causas e impactos</a><a href="denuncia.html">Como denunciar</a><a href="baixar.html" aria-current="page">Baixar dados e este app</a></nav>
+<main>
+  <h2>Baixar os dados oficiais</h2>
+  <ol>
+    <li>Acesse terrabrasilis.dpi.inpe.br, plataforma de dados do INPE.</li>
+    <li>Escolha o projeto: PRODES (taxa anual) ou DETER (alertas quase em tempo real).</li>
+    <li>Selecione o bioma, como Amazônia ou Cerrado.</li>
+    <li>Abra a área de downloads e baixe o arquivo no formato que precisar.</li>
+  </ol>
+  <p>O MapBiomas Alerta (alerta.mapbiomas.org) também oferece dados e laudos sobre desmatamento.</p>
+  <h2>Baixar a tabela deste app</h2>
+  <p><button class="btn" id="csv">Baixar tabela em CSV</button></p>
+  <h2>Usar este app no celular ou computador</h2>
+  <ol>
+    <li>Abra o endereço deste site no navegador do celular.</li>
+    <li>No Chrome (Android): menu ⋮ e "Instalar app" ou "Adicionar à tela inicial". No iPhone (Safari): Compartilhar e "Adicionar à Tela de Início".</li>
+    <li>Depois de instalado, o app abre com ícone próprio e funciona sem internet.</li>
+  </ol>
+</main>
+<script>
+var D=[[2004,27772],[2008,12911],[2012,4571],[2015,6207],[2018,7536],[2019,10129],[2020,10851],[2021,13038],[2022,11594],[2023,9001],[2024,6288]];
+document.getElementById('csv').onclick=function(){
+  var csv='ano,desmatamento_km2\n'+D.map(function(d){return d.join(',')}).join('\n');
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='desmatamento-amazonia.csv';a.click();
+};
+</script>
+<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("sw.js")})}</script>
+</body></html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Dados | Desmatamento no Brasil</title><link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#000000"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"></head><body>
+<header style="padding-bottom:12px"><a class="brand" href="index.html"><h1 style="font-size:1.6rem;margin:0">Desmatamento no Brasil</h1></a></header>
+<nav aria-label="Seções"><a href="index.html">Início</a><a href="dados.html" aria-current="page">Dados</a><a href="mapa.html">Mapa</a><a href="causas.html">Causas e impactos</a><a href="denuncia.html">Como denunciar</a><a href="baixar.html">Baixar dados e este app</a></nav>
+<main>
+  <h2>Desmatamento anual na Amazônia</h2>
+  <p>Área desmatada por ano na Amazônia Legal, em km². O pico foi em 2004 e o menor valor da série em 2012.</p>
+  <div class="chart" id="chart" role="img" aria-label="Gráfico de barras do desmatamento anual na Amazônia, de 2004 a 2024"></div>
+  <div class="years" id="years"></div>
+  <p class="note">Fonte: INPE/PRODES, taxas anuais. Confira os valores atualizados em terrabrasilis.dpi.inpe.br.</p>
+  <div class="facts">
+    <div><strong>27.772 km²</strong>em 2004, o maior valor da série</div>
+    <div><strong>4.571 km²</strong>em 2012, o menor valor da série</div>
+    <div><strong>13.038 km²</strong>em 2021, o maior valor recente</div>
+    <div><strong>6.288 km²</strong>em 2024, queda de cerca de 31% sobre 2023</div>
+  </div>
+</main>
+<script>
+var D=[[2004,27772],[2008,12911],[2012,4571],[2015,6207],[2018,7536],[2019,10129],[2020,10851],[2021,13038],[2022,11594],[2023,9001],[2024,6288]];
+var max=27772,c=document.getElementById('chart'),y=document.getElementById('years');
+D.forEach(function(d){
+  var b=document.createElement('div');b.className='bar'+(d[1]===max?' hi':'');
+  b.innerHTML='<b>'+d[1].toLocaleString('pt-BR')+'</b><i style="height:'+(d[1]/max*85)+'%"></i>';
+  c.appendChild(b);
+  var s=document.createElement('span');s.textContent=d[0];y.appendChild(s);
+});
+</script>
+<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("sw.js")})}</script>
+</body></html>
